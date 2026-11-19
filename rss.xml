@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Samuel S. Thorp — Markdown Web</title>
+    <link>https://md.thorp.uk/index.md</link>
+    <description>Notes, essays, and experiments on the Markdown web.</description>
+    <language>en-gb</language>
+    <atom:link href="https://md.thorp.uk/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Hello World</title>
+      <link>https://md.thorp.uk/helloworld.md</link>
+      <guid>https://md.thorp.uk/helloworld.md</guid>
+      <pubDate>Wed, 18 Nov 2026 21:23:00 GMT</pubDate>
+      <description>Stepping boldly where I've never been before.</description>
+    </item>
+  </channel>
+</rss>
