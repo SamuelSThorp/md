@@ -1,7 +1,7 @@
 ---
 title: "Judged"
 author: "Samuel S. Thorp"
-pubDate: "Thu, 19 Nov 2026 20:00:00 GMT"
+pubDate: "Thu, 19 Nov 2026 20:35:00 GMT"
 description: "What will divine judgement feel like?"
 tags: ["faith", "judgement", "forgiveness", "vision"]
 urlParent: "../../faith.md"
