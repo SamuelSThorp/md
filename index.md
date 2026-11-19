@@ -19,8 +19,8 @@ Welcome to my corner of the Markdown web. No trackers, no layout bloat—just pl
 
 ## Elsewhere
 
-- [Main Website](https://samuelsthorp.co.uk)
-- [Twitter](https://x.com/SamuelSThorp)
+- [SamuelSThorp.co.uk](https://samuelsthorp.co.uk)
+- [@samuelsthorp on X](https://x.com/SamuelSThorp)
 - [RSS Feed](https://md.thorp.uk/rss.xml)
 
 ## Resource
