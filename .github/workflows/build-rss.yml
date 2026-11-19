@@ -1,0 +1,72 @@
+name: Build RSS Feed
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ '**.md' ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-rss:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate rss.xml from Markdown front matter
+        run: |
+          python3 - << 'EOF'
+          import glob, re, email.utils, xml.sax.saxutils as x
+
+          SITE_URL = "https://md.thorp.uk"
+          EXCLUDE = {"index.md", "cheatsheet.md", "README.md"}
+
+          items = []
+          for path in glob.glob("**/*.md", recursive=True):
+              if path in EXCLUDE or path.startswith("."):
+                  continue
+              text = open(path, encoding="utf-8").read()
+              m = re.match(r"^---\s*\n(.*?)\n---", text, re.S)
+              if not m:
+                  continue
+              fm = dict(re.findall(r'^(\w+):\s*"?(.*?)"?\s*$', m.group(1), re.M))
+              title = fm.get("title", path)
+              pub = fm.get("pubDate", "")
+              desc = fm.get("description", "")
+              ts = email.utils.parsedate_to_datetime(pub).timestamp() if pub else 0
+              url = f"{SITE_URL}/{path.replace(chr(92), '/')}"
+              items.append((ts, title, url, pub, desc))
+
+          items.sort(key=lambda i: i[0], reverse=True)
+
+          xml_items = "\n".join(f"""    <item>
+                <title>{x.escape(t)}</title>
+                <link>{x.escape(u)}</link>
+                <guid>{x.escape(u)}</guid>
+                <pubDate>{x.escape(p)}</pubDate>
+                <description>{x.escape(d)}</description>
+              </item>""" for _, t, u, p, d in items)
+
+          rss = f"""<?xml version="1.0" encoding="UTF-8"?>
+          <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+            <channel>
+              <title>Samuel S. Thorp — Markdown Web</title>
+              <link>{SITE_URL}/index.md</link>
+              <description>Notes, essays, and experiments on the Markdown web.</description>
+              <language>en-gb</language>
+              <atom:link href="{SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
+          {xml_items}
+            </channel>
+          </rss>
+          """
+          open("rss.xml", "w", encoding="utf-8").write(rss)
+          EOF
+
+      - name: Commit updated rss.xml
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rss.xml
+          git diff --cached --quiet || git commit -m "Update rss.xml"
+          git push
