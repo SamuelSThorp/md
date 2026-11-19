@@ -22,6 +22,7 @@ Welcome to my corner of the Markdown web. No trackers, no layout bloat—just pl
 
 ## Posts
 
+- [Judged](2026/11/judged.md) — What will divine judgement feel like?
 - [Hello World](helloworld.md) — My first post on the Markdown web.
 
 ## Elsewhere
