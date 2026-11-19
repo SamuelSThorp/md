@@ -22,6 +22,7 @@ title: "Post Title"
 author: "Samuel S. Thorp"
 pubDate: "Thu, 19 Nov 2026 08:30:00 GMT"
 description: "One-sentence summary of the post."
+tags: ["poetry", "faith"]
 urlParent: "index.md"
 urlPrev: "previous-post.md"
 urlNext: "next-post.md"
