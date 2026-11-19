@@ -20,7 +20,7 @@ jobs:
           import glob, re, email.utils, xml.sax.saxutils as x
 
           SITE_URL = "https://md.thorp.uk"
-          EXCLUDE = {"index.md", "cheatsheet.md", "README.md"}
+         EXCLUDE = {"index.md", "cheatsheet.md", "README.md", "faith.md", "poetry.md", "reading.md", "vision.md"}
 
           items = []
           for path in glob.glob("**/*.md", recursive=True):
