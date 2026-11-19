@@ -14,7 +14,7 @@ Reflections on Scripture, liturgy, prayer, and ministry in the Church of England
 
 ## Entries
 
-- *(First reflection coming soon.)*
+- [Judged](2026/11/judged.md) — What will divine judgement feel like?
 
 ---
 
