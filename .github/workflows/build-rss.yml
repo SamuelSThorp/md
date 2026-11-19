@@ -5,6 +5,10 @@ on:
     branches: [ main ]
     paths: [ '**.md' ]
 
+concurrency:
+  group: build-rss
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -20,7 +24,7 @@ jobs:
           import glob, re, email.utils, xml.sax.saxutils as x
 
           SITE_URL = "https://md.thorp.uk"
-         EXCLUDE = {"index.md", "cheatsheet.md", "README.md", "faith.md", "poetry.md", "reading.md", "vision.md"}
+          EXCLUDE = {"index.md", "cheatsheet.md", "README.md", "faith.md", "poetry.md", "reading.md", "vision.md"}
 
           items = []
           for path in glob.glob("**/*.md", recursive=True):
@@ -53,7 +57,7 @@ jobs:
             <channel>
               <title>Samuel S. Thorp — Markdown Web</title>
               <link>{SITE_URL}/index.md</link>
-              <description>Notes, essays, and experiments on the Markdown web.</description>
+              <description>Faith reflections, poetry, reading commentary, and vision loss updates on the Markdown web.</description>
               <language>en-gb</language>
               <atom:link href="{SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
           {xml_items}
@@ -68,5 +72,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add rss.xml
-          git diff --cached --quiet || git commit -m "Update rss.xml"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Update rss.xml"
+            git pull --rebase origin main
+            git push
+          fi
